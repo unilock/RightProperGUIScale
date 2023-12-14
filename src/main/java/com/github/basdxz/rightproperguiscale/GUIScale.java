@@ -3,6 +3,7 @@ package com.github.basdxz.rightproperguiscale;
 import com.github.basdxz.rightproperguiscale.command.GUIScaleCommand;
 import com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig;
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
+import com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft.accessor.GameSettingsOptionsAccessor;
 import com.github.basdxz.rightproperguiscale.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -79,6 +80,9 @@ public final class GUIScale {
     public static void init() {
         if (IS_INITIALIZED)
             return;
+        //noinspection ReferenceToMixin
+        ((GameSettingsOptionsAccessor) GameSettings.Options.GUI_SCALE).setValueMin(RightProperGUIScaleConfig.GUI_SCALE_MIN);
+        GameSettings.Options.GUI_SCALE.setValueMax(RightProperGUIScaleConfig.GUI_SCALE_MAX);
         GUIScaleCommand.register();
         IS_INITIALIZED = true;
     }

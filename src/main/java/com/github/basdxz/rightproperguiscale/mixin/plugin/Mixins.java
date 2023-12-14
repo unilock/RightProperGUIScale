@@ -7,11 +7,17 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 
 public enum Mixins {
-    GameSettingsEnum(new Builder("GameSettingsEnum")
+    GameSettingsOptionsAccessor(new Builder("GameSettingsOptionsAccessor")
         .addTargetedMod(TargetedMod.VANILLA)
         .setSide(Side.CLIENT)
         .setPhase(Phase.EARLY)
-        .addMixinClasses("client.minecraft.GameSettingsEnumMixin")),
+        .addMixinClasses("client.minecraft.accessor.GameSettingsOptionsAccessor")),
+
+    GameSettingsOptions(new Builder("GameSettingsOptions")
+        .addTargetedMod(TargetedMod.VANILLA)
+        .setSide(Side.CLIENT)
+        .setPhase(Phase.EARLY)
+        .addMixinClasses("client.minecraft.GameSettingsOptionsMixin")),
     GameSettingsInitGUIScale(new Builder("GameSettingsInitGUIScale")
         .addTargetedMod(TargetedMod.VANILLA)
         .setSide(Side.CLIENT)
@@ -62,11 +68,13 @@ public enum Mixins {
         .addMixinClasses("client.minecraft.GuiVideoSettingsGUIScaleUpdateMixin")),
 
     GuiScreenGUIScaleUpdateMixin(new Builder("GuiScreenGUIScaleUpdateMixin")
+        .addTargetedMod(TargetedMod.VANILLA)
         .addTargetedMod(TargetedMod.OPTIFINE)
         .setSide(Side.CLIENT)
         .setPhase(Phase.EARLY)
         .addMixinClasses("client.optifine.GuiScreenGUIScaleUpdateMixin")),
     TooltipProviderOptionsGUIScaleLangMixin(new Builder("TooltipProviderOptionsGUIScaleLangMixin")
+        .addTargetedMod(TargetedMod.VANILLA)
         .addTargetedMod(TargetedMod.OPTIFINE)
         .setSide(Side.CLIENT)
         .setPhase(Phase.EARLY)
