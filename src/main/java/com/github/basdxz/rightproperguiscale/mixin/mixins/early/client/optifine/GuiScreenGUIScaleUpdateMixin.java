@@ -1,11 +1,13 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.optifine;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.optifine;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiVideoSettings;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.mouseReleased;
 

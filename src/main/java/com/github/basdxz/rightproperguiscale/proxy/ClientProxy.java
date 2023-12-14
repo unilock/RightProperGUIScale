@@ -1,6 +1,7 @@
 package com.github.basdxz.rightproperguiscale.proxy;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
+import com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 /**
@@ -13,6 +14,7 @@ public class ClientProxy extends CommonProxy {
      * @param event Forge pre init event
      */
     public void preInit(FMLPreInitializationEvent event) {
+        RightProperGUIScaleConfig.synchronizeConfiguration(event.getSuggestedConfigurationFile());
         GUIScale.init();
     }
 }

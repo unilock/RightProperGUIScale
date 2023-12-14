@@ -3,28 +3,23 @@ package com.github.basdxz.rightproperguiscale;
 import com.github.basdxz.rightproperguiscale.command.GUIScaleCommand;
 import com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig;
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import com.github.basdxz.rightproperguiscale.mixin.plugin.Mixin;
-import com.github.basdxz.rightproperguiscale.reflection.GameSettingReflections;
 import com.github.basdxz.rightproperguiscale.util.Util;
-import lombok.*;
-import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MathHelper;
 
+import javax.annotation.Nonnull;
 import java.text.DecimalFormat;
 
-import static com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig.*;
 import static net.minecraft.client.Minecraft.getMinecraft;
 
 /**
  * The main class of the Right Proper GUI Scale mod, the Forge and Mixin entry points are listed below.
  *
  * @see RightProperGUIScale
- * @see Mixin
+ * @see com.github.basdxz.rightproperguiscale.mixin.plugin.Mixins
  */
-@UtilityClass
 public final class GUIScale {
     /**
      * The vanilla Minecraft Small GUI Scale setting.
@@ -53,7 +48,7 @@ public final class GUIScale {
     /**
      * Actual value of the current GUI Scale.
      */
-    private static float VALUE = (float) GUI_SCALE_DEFAULT;
+    private static float VALUE = RightProperGUIScaleConfig.GUI_SCALE_DEFAULT;
     /**
      * Integer value of the current GUI Scale, clamped to expected Minecraft limits.
      *
@@ -75,7 +70,7 @@ public final class GUIScale {
      * @return default int value
      */
     private static int defaultIntValue() {
-        return vanillaGuiScaleSetting((float) GUI_SCALE_DEFAULT);
+        return vanillaGuiScaleSetting(RightProperGUIScaleConfig.GUI_SCALE_DEFAULT);
     }
 
     /**
@@ -84,7 +79,6 @@ public final class GUIScale {
     public static void init() {
         if (IS_INITIALIZED)
             return;
-        GameSettingReflections.apply();
         GUIScaleCommand.register();
         IS_INITIALIZED = true;
     }
@@ -112,7 +106,6 @@ public final class GUIScale {
      * Applies the current configuration defined in {@link RightProperGUIScaleConfig}.
      */
     public static void configure() {
-        GameSettingReflections.apply();
         reapplyLimits();
     }
 
@@ -148,7 +141,7 @@ public final class GUIScale {
      * Updates {@link GUIScale#FLOAT_FORMAT}.
      */
     private static void updateFloatFormat() {
-        val fractionDigits = fractionDigits();
+        var fractionDigits = fractionDigits();
         FLOAT_FORMAT.setMaximumFractionDigits(fractionDigits);
         FLOAT_FORMAT.setMinimumFractionDigits(fractionDigits);
     }
@@ -160,7 +153,7 @@ public final class GUIScale {
      * @return number of fractional digits
      */
     private static int fractionDigits() {
-        return Math.round((float) -Math.log10(GUI_SCALE_STEP));
+        return Math.round((float) -Math.log10(RightProperGUIScaleConfig.GUI_SCALE_STEP));
     }
 
     /**
@@ -183,13 +176,13 @@ public final class GUIScale {
     }
 
     /**
-     * Clamps the GUI scale within the limits currently defined in {@link RightProperGUIScaleConfig}.
+     * Clamps the GUI scale within the limits currently defined in {@link com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig}.
      *
      * @param guiScale unclamped GUI scale.
      * @return the clamped GUI scale
      */
     private static float clampGUIScale(float guiScale) {
-        return (float) Math.max(Math.min(guiScale, GUI_SCALE_MAX), GUI_SCALE_MIN);
+        return (float) Math.max(Math.min(guiScale, RightProperGUIScaleConfig.GUI_SCALE_MAX), RightProperGUIScaleConfig.GUI_SCALE_MIN);
     }
 
     /**
@@ -230,7 +223,7 @@ public final class GUIScale {
      * Updates Minecraft's GUI Scale.
      */
     private static void updateMinecraft() {
-        val settings = getMinecraft().gameSettings;
+        var settings = getMinecraft().gameSettings;
         if (settings != null)
             settings.guiScale = VALUE_INT;
     }
@@ -239,10 +232,10 @@ public final class GUIScale {
      * Updates the currently open GUI size.
      */
     private static void updateCurrentGUI() {
-        val screen = getMinecraft().currentScreen;
+        var screen = getMinecraft().currentScreen;
         if (screen == null)
             return;
-        val scaledResolution = Util.newScaledResolution();
+        var scaledResolution = Util.newScaledResolution();
         screen.setWorldAndResolution(getMinecraft(),
                                      scaledResolution.getScaledWidth(),
                                      scaledResolution.getScaledHeight());
@@ -255,7 +248,7 @@ public final class GUIScale {
      *
      * @param scaledResolution scaled resolution
      */
-    public static void lastScaledResolution(@NonNull IScaledResolutionMixin scaledResolution) {
+    public static void lastScaledResolution(@Nonnull IScaledResolutionMixin scaledResolution) {
         LAST_SCALED_RESOLUTION = scaledResolution;
     }
 

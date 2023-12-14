@@ -2,7 +2,7 @@ package com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
 import com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig;
-import com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft.ScaledResolutionPatchMixin;
+import com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft.ScaledResolutionPatchMixin;
 import net.minecraft.client.gui.ScaledResolution;
 
 /**

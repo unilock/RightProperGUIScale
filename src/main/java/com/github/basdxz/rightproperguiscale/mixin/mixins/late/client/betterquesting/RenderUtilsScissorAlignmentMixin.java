@@ -1,16 +1,18 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.betterquesting;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.late.client.betterquesting;
 
 import betterquesting.api.utils.RenderUtils;
 import betterquesting.api2.client.gui.misc.GuiRectangle;
 import betterquesting.api2.client.gui.misc.IGuiRect;
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import lombok.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.util.vector.Matrix4f;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.nio.FloatBuffer;
 
@@ -51,15 +53,15 @@ public abstract class RenderUtilsScissorAlignmentMixin {
                                                int f,
                                                FloatBuffer fb,
                                                Matrix4f fm) {
-        val scaledResolution = (IScaledResolutionMixin) r;
-        val scale = scaledResolution.scaleFactor();
-        val scaledHeight = (float) scaledResolution.scaledHeight();
+        var scaledResolution = (IScaledResolutionMixin) r;
+        var scale = scaledResolution.scaleFactor();
+        var scaledHeight = (float) scaledResolution.scaledHeight();
 
         // Does not change the behavior of the original code, simply makes it scale with the float scale factor.
-        val posX = safeRound((rect.getX() * scale * fm.m00) + (fm.m30 * scale));
-        val posY = safeRound((scaledHeight - ((rect.getY() + rect.getHeight()) * fm.m11 + fm.m31)) * scale);
-        val width = safeRound(rect.getWidth() * scale * fm.m00);
-        val height = safeRound(rect.getHeight() * scale * fm.m11);
+        var posX = safeRound((rect.getX() * scale * fm.m00) + (fm.m30 * scale));
+        var posY = safeRound((scaledHeight - ((rect.getY() + rect.getHeight()) * fm.m11 + fm.m31)) * scale);
+        var width = safeRound(rect.getWidth() * scale * fm.m00);
+        var height = safeRound(rect.getHeight() * scale * fm.m11);
 
         cachedRectangle.set(new GuiRectangle(posX, posY, width, height));
     }
@@ -90,7 +92,7 @@ public abstract class RenderUtilsScissorAlignmentMixin {
                        target = "(IIII)Lbetterquesting/api2/client/gui/misc/GuiRectangle;"),
               require = 1)
     private static GuiRectangle replaceScissorRectangle(int x, int y, int w, int h) {
-        val rect = cachedRectangle.get();
+        var rect = cachedRectangle.get();
         if (rect == null)
             new GuiRectangle(x, y, w, h);
         cachedRectangle.remove();

@@ -1,11 +1,15 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.mixin.plugin.TargetedMod;
-import lombok.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.shader.Framebuffer;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import javax.annotation.Nonnull;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.framebufferRender;
 
@@ -45,7 +49,7 @@ public abstract class MinecraftLoadingScreenSizeMixin {
      * @param framebuffer framebuffer
      * @param setViewport viewport state
      */
-    private void resetFramebuffer(@NonNull Framebuffer framebuffer, boolean setViewport) {
+    private void resetFramebuffer(@Nonnull Framebuffer framebuffer, boolean setViewport) {
         framebuffer.createBindFramebuffer(displayWidth, displayHeight);
         framebuffer.bindFramebuffer(setViewport);
     }

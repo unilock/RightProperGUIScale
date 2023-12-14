@@ -1,15 +1,14 @@
 package com.github.basdxz.rightproperguiscale.proxy;
 
+import com.github.basdxz.rightproperguiscale.Tags;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-
-import static com.github.basdxz.rightproperguiscale.Tags.MODNAME;
 
 /**
  * Forge server proxy.
  */
 public class ServerProxy extends CommonProxy {
     private final static String CLIENT_SIDE_ONLY_ERROR =
-            "Laughing at this user! " + MODNAME + " is a CLIENT-SIDE MOD!!!";
+            "Laughing at this user! " + Tags.MODNAME + " is a CLIENT-SIDE MOD!!!";
 
     /**
      * Throws an error if the mod is loaded on the server.

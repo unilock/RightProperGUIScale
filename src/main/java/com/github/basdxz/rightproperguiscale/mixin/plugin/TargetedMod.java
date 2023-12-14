@@ -1,24 +1,26 @@
 package com.github.basdxz.rightproperguiscale.mixin.plugin;
 
-import com.falsepattern.lib.mixin.ITargetedMod;
-import lombok.*;
+public enum TargetedMod {
+    BETTER_LOADING_SCREEN("Better Loading Screen", null, "betterloadingscreen"),
+    BETTER_QUESTING("BetterQuesting", null, "betterquesting"),
+    OPTIFINE("Optifine", "optifine.OptiFineForgeTweaker", "Optifine"),
+    VANILLA("Minecraft", null, null);
 
-import java.util.function.Predicate;
+    /** The "name" in the {@link cpw.mods.fml.common.Mod @Mod} annotation */
+    public final String modName;
+    /** Class that implements the IFMLLoadingPlugin interface */
+    public final String coreModClass;
+    /** The "modid" in the {@link cpw.mods.fml.common.Mod @Mod} annotation */
+    public final String modId;
 
-import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWith;
+    TargetedMod(String modName, String coreModClass, String modId) {
+        this.modName = modName;
+        this.coreModClass = coreModClass;
+        this.modId = modId;
+    }
 
-/**
- * List of targeted mods used for mixing loading logic.
- */
-@Getter
-@RequiredArgsConstructor
-public enum TargetedMod implements ITargetedMod {
-    OPTIFINE("OptiFine", false, startsWith("optifine")),
-    BETTER_LOADING_SCREEN("BetterLoadingScreen", false, startsWith("betterloadingscreen")),
-    BETTER_QUESTING("BetterQuesting", true, startsWith("betterquesting")),
-    ;
-
-    private final String modName;
-    private final boolean loadInDevelopment;
-    private final Predicate<String> condition;
+    @Override
+    public String toString() {
+        return "TargetedMod{modName='" + modName + "', coreModClass='" + coreModClass + "', modId='" + modId + "'}";
+    }
 }

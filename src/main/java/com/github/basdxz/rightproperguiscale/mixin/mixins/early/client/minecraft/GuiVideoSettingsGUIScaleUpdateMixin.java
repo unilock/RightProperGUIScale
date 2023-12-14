@@ -1,13 +1,16 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
-import lombok.*;
 import net.minecraft.client.gui.GuiVideoSettings;
 import net.minecraft.client.gui.ScaledResolution;
 import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import javax.annotation.Nonnull;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.mouseReleased;
 
@@ -69,7 +72,7 @@ public abstract class GuiVideoSettingsGUIScaleUpdateMixin {
      *
      * @param ci mixin callback info
      */
-    private void earlyReturn(@NonNull CallbackInfo ci) {
+    private void earlyReturn(@Nonnull CallbackInfo ci) {
         ci.cancel();
     }
 }

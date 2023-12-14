@@ -1,10 +1,12 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
 import net.minecraft.client.settings.GameSettings;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * A Mixin for {@link GameSettings} that appends the GUI Scale with {@link GUIScale#vanillaValue()}.

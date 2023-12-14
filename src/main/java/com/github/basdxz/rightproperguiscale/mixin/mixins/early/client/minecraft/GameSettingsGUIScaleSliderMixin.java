@@ -1,19 +1,23 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
 import com.github.basdxz.rightproperguiscale.util.Util;
-import lombok.*;
 import net.minecraft.client.settings.GameSettings;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import javax.annotation.Nonnull;
 
 /**
  * A Mixin for {@link GameSettings} which tweaks the GUI Scale slider to show the correct label and properly set/get
  * its value.
  */
 @Mixin(GameSettings.class)
-public abstract class GameSettingGUIScaleSliderMixin {
+public abstract class GameSettingsGUIScaleSliderMixin {
     @Shadow
     public int guiScale;
 
@@ -38,7 +42,7 @@ public abstract class GameSettingGUIScaleSliderMixin {
      *
      * @param cir mixin callback info returnable
      */
-    private void returnGUIScaleSliderLabel(@NonNull CallbackInfoReturnable<String> cir) {
+    private void returnGUIScaleSliderLabel(@Nonnull CallbackInfoReturnable<String> cir) {
         cir.setReturnValue(GUIScale.sliderLabel());
         cir.cancel();
     }
@@ -65,7 +69,7 @@ public abstract class GameSettingGUIScaleSliderMixin {
      * @param guiScale GUI Scale
      * @param ci       mixin callback info
      */
-    private void setTempGUIScale(float guiScale, @NonNull CallbackInfo ci) {
+    private void setTempGUIScale(float guiScale, @Nonnull CallbackInfo ci) {
         GUIScale.setTemp(guiScale);
         ci.cancel();
     }
@@ -91,7 +95,7 @@ public abstract class GameSettingGUIScaleSliderMixin {
      *
      * @param cir mixin callback info returnable
      */
-    private void returnGUIScale(@NonNull CallbackInfoReturnable<Float> cir) {
+    private void returnGUIScale(@Nonnull CallbackInfoReturnable<Float> cir) {
         cir.setReturnValue(GUIScale.value());
         cir.cancel();
     }

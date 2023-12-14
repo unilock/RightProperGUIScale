@@ -1,22 +1,19 @@
 package com.github.basdxz.rightproperguiscale.command;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
-import lombok.*;
 import net.minecraft.command.*;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.ClientCommandHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
-
-import static lombok.AccessLevel.PROTECTED;
 
 /**
  * The client-side command for changing GUI Scale.
  * <p>
  * Example usage: {@code /guiscale 5} will set the GUI Scale to 5.
  */
-@NoArgsConstructor(access = PROTECTED)
 public class GUIScaleCommand extends CommandBase {
     protected static final GUIScaleCommand INSTANCE = new GUIScaleCommand();
     protected static final String GUI_SCALE_COMMAND_NAME = "guiscale";
@@ -76,7 +73,7 @@ public class GUIScaleCommand extends CommandBase {
     public void processCommand(ICommandSender sender, String[] args) {
         if (argsNull(sender, args) || argsWrongCount(args))
             throw newWrongUsageException();
-        val guiScale = parseGUIScale(args);
+        var guiScale = parseGUIScale(args);
         if (!guiScale.isPresent())
             throw newNumberInvalidGUIScaleValueException(args);
         updateGUIScale(guiScale.get());
@@ -100,7 +97,7 @@ public class GUIScaleCommand extends CommandBase {
      * @param args command arguments
      * @return is the number of arguments unexpected
      */
-    protected boolean argsWrongCount(@NonNull String[] args) {
+    protected boolean argsWrongCount(@Nonnull String[] args) {
         return args.length != GUI_SCALE_COMMAND_ARGUMENT_COUNT;
     }
 
@@ -120,7 +117,7 @@ public class GUIScaleCommand extends CommandBase {
      * @param args command arguments
      * @return optional containing the result of parsing
      */
-    protected Optional<Float> parseGUIScale(@NonNull String[] args) {
+    protected Optional<Float> parseGUIScale(@Nonnull String[] args) {
         try {
             return Optional.of(Float.parseFloat(args[GUI_SCALE_ARGUMENT_INDEX]));
         } catch (Exception e) {
@@ -134,7 +131,7 @@ public class GUIScaleCommand extends CommandBase {
      * @param args command arguments
      * @return new number invalid exception
      */
-    protected CommandException newNumberInvalidGUIScaleValueException(@NonNull String[] args) {
+    protected CommandException newNumberInvalidGUIScaleValueException(@Nonnull String[] args) {
         return new NumberInvalidException(GUI_SCALE_COMMAND_NUMBER_INVALID, args[GUI_SCALE_ARGUMENT_INDEX]);
     }
 
@@ -153,7 +150,7 @@ public class GUIScaleCommand extends CommandBase {
      *
      * @param sender command sender
      */
-    protected void sendSuccessMessage(@NonNull ICommandSender sender) {
+    protected void sendSuccessMessage(@Nonnull ICommandSender sender) {
         sender.addChatMessage(newSuccessMessage());
     }
 

@@ -1,21 +1,23 @@
-[
-    {
-        "modid": "${modId}",
-        "name": "${modName}",
-        "description": "A very well functioning GUI scale mod that doesn't suck.",
-        "version": "${modVersion}",
-        "mcversion": "${minecraftVersion}",
-        "url": "https://github.com/basdxz/RightProperGUIScale",
-        "updateUrl": "",
-        "authorList": [
-            "basdxz"
-        ],
-        "credits": "FalsePattern for FalsePatternLib and help debugging mixins. Houston for the artwork, testing and mod request.",
-        "logoFile": "logo.png",
-        "screenshots": [],
-        "dependencies": [
-            "required-after:spongemixins@[1.1.0,)",
-            "required-after:falsepatternlib@[0.10.14,)"
-        ]
-    }
-]
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "A very well functioning GUI scale mod that doesn't suck.",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "https://github.com/basdxz/RightProperGUIScale",
+		"updateUrl": "",
+		"authorList": [
+			"basdxz"
+		],
+		"credits": "",
+		"logoFile": "logo.png",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": [],
+		"dependencies": [],
+		"dependants": [],
+		"useDependencyInformation": true
+	}]
+}

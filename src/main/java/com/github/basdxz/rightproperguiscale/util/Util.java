@@ -1,19 +1,18 @@
 package com.github.basdxz.rightproperguiscale.util;
 
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import lombok.*;
-import lombok.experimental.*;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.shader.Framebuffer;
+
+import javax.annotation.Nonnull;
 
 import static net.minecraft.client.Minecraft.getMinecraft;
 
 /**
  * Utilities that don't have a better place to be.
  */
-@UtilityClass
 public final class Util {
     private static final int MOUSE_BUTTON_MOVED = -1;
 
@@ -41,7 +40,7 @@ public final class Util {
      * @param scaledResolution converted scaled instance to convert
      * @return converted scaled resolution
      */
-    public static IScaledResolutionMixin toIScaledResolutionMixin(@NonNull ScaledResolution scaledResolution) {
+    public static IScaledResolutionMixin toIScaledResolutionMixin(@Nonnull ScaledResolution scaledResolution) {
         return (IScaledResolutionMixin) scaledResolution;
     }
 
@@ -71,7 +70,7 @@ public final class Util {
      *
      * @param framebuffer framebuffer
      */
-    public static void framebufferRender(@NonNull Framebuffer framebuffer) {
+    public static void framebufferRender(@Nonnull Framebuffer framebuffer) {
         framebuffer.framebufferRender(getMinecraft().displayWidth, getMinecraft().displayHeight);
     }
 }

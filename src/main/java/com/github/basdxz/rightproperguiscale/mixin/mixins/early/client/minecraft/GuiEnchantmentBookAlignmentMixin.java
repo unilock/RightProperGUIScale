@@ -1,13 +1,15 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import lombok.*;
 import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.opengl.*;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import javax.annotation.Nonnull;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.newIScaledResolutionMixin;
 
@@ -47,7 +49,7 @@ public abstract class GuiEnchantmentBookAlignmentMixin {
      * Sets the viewport for rendering the book
      */
     private void setBookViewport() {
-        val scaledResolution = newIScaledResolutionMixin();
+        var scaledResolution = newIScaledResolutionMixin();
         GL11.glViewport(bookViewportXPos(scaledResolution),
                         bookViewportYPos(scaledResolution),
                         bookViewportWidth(scaledResolution),
@@ -60,7 +62,7 @@ public abstract class GuiEnchantmentBookAlignmentMixin {
      * @param scaledResolution scaled resolution
      * @return viewport X position
      */
-    private int bookViewportXPos(@NonNull IScaledResolutionMixin scaledResolution) {
+    private int bookViewportXPos(@Nonnull IScaledResolutionMixin scaledResolution) {
         return MathHelper.ceiling_double_int((scaledResolution.scaledWidth() - BOOK_RENDER_WIDTH) /
                                              2F * scaledResolution.scaleFactor());
     }
@@ -71,7 +73,7 @@ public abstract class GuiEnchantmentBookAlignmentMixin {
      * @param scaledResolution scaled resolution
      * @return viewport Y position
      */
-    private int bookViewportYPos(@NonNull IScaledResolutionMixin scaledResolution) {
+    private int bookViewportYPos(@Nonnull IScaledResolutionMixin scaledResolution) {
         return MathHelper.ceiling_double_int((scaledResolution.scaledHeight() - BOOK_RENDER_HEIGHT) /
                                              2F * scaledResolution.scaleFactor());
     }
@@ -82,7 +84,7 @@ public abstract class GuiEnchantmentBookAlignmentMixin {
      * @param scaledResolution scaled resolution
      * @return viewport width
      */
-    private int bookViewportWidth(@NonNull IScaledResolutionMixin scaledResolution) {
+    private int bookViewportWidth(@Nonnull IScaledResolutionMixin scaledResolution) {
         return MathHelper.ceiling_float_int(BOOK_RENDER_WIDTH * scaledResolution.scaleFactor());
     }
 
@@ -92,7 +94,7 @@ public abstract class GuiEnchantmentBookAlignmentMixin {
      * @param scaledResolution scaled resolution
      * @return viewport height
      */
-    private int bookViewportHeight(@NonNull IScaledResolutionMixin scaledResolution) {
+    private int bookViewportHeight(@Nonnull IScaledResolutionMixin scaledResolution) {
         return MathHelper.ceiling_float_int(BOOK_RENDER_HEIGHT * scaledResolution.scaleFactor());
     }
 }

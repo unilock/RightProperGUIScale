@@ -1,9 +1,11 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.optifine;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.optifine;
 
 
 import net.minecraft.client.settings.GameSettings;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.isGUIScaleOption;
 

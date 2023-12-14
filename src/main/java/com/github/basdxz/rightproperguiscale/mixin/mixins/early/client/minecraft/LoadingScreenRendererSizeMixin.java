@@ -1,14 +1,18 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import lombok.*;
 import net.minecraft.client.LoadingScreenRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.shader.Framebuffer;
-import org.lwjgl.opengl.*;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import javax.annotation.Nonnull;
 
 import static com.github.basdxz.rightproperguiscale.util.Util.framebufferRender;
 import static com.github.basdxz.rightproperguiscale.util.Util.toIScaledResolutionMixin;
@@ -55,7 +59,7 @@ public abstract class LoadingScreenRendererSizeMixin {
      * @param zNear            distance to the near clipping plane
      * @param zFar             distance to the far clipping plane
      */
-    private void setOrtho(@NonNull IScaledResolutionMixin scaledResolution,
+    private void setOrtho(@Nonnull IScaledResolutionMixin scaledResolution,
                           double left,
                           double top,
                           double zNear,
@@ -70,7 +74,7 @@ public abstract class LoadingScreenRendererSizeMixin {
      * @param scaledResolution scaled resolution
      * @return distance to the right horizontal clipping planes
      */
-    private float rightOrtho(@NonNull IScaledResolutionMixin scaledResolution) {
+    private float rightOrtho(@Nonnull IScaledResolutionMixin scaledResolution) {
         return scaledResolution.scaledWidth() * scaledResolution.scaleFactor();
     }
 
@@ -81,7 +85,7 @@ public abstract class LoadingScreenRendererSizeMixin {
      * @param scaledResolution scaled resolution
      * @return distance to the bottom vertical clipping planes
      */
-    private float bottomOrtho(@NonNull IScaledResolutionMixin scaledResolution) {
+    private float bottomOrtho(@Nonnull IScaledResolutionMixin scaledResolution) {
         return scaledResolution.scaledHeight() * scaledResolution.scaleFactor();
     }
 

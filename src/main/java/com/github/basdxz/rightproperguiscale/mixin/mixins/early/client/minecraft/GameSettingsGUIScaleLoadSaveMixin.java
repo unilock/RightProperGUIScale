@@ -1,17 +1,20 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
-import lombok.*;
 import net.minecraft.client.settings.GameSettings;
 import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Slice;
+
+import javax.annotation.Nonnull;
 
 /**
  * A Mixin for {@link GameSettings} to handle loading and saving the {@link GUIScale} value.
  */
 @Mixin(GameSettings.class)
-public abstract class GameSettingGUIScaleLoadSaveMixin {
+public abstract class GameSettingsGUIScaleLoadSaveMixin {
     /**
      * Injects when the GUI Scale is about to be parsed, parsing it as a float instead of an int and loads it with
      * {@link GUIScale#set(float)}.
@@ -39,7 +42,7 @@ public abstract class GameSettingGUIScaleLoadSaveMixin {
      *
      * @param guiScale GUI Scale
      */
-    private void setGUIScaleFromOptionsFile(@NonNull String guiScale) {
+    private void setGUIScaleFromOptionsFile(@Nonnull String guiScale) {
         GUIScale.set(parseGUIScaleFromOptionsFile(guiScale));
     }
 
@@ -49,7 +52,7 @@ public abstract class GameSettingGUIScaleLoadSaveMixin {
      * @param guiScale GUI Scale
      * @return GUI Scale
      */
-    private float parseGUIScaleFromOptionsFile(@NonNull String guiScale) {
+    private float parseGUIScaleFromOptionsFile(@Nonnull String guiScale) {
         return Float.parseFloat(guiScale);
     }
 
@@ -89,7 +92,7 @@ public abstract class GameSettingGUIScaleLoadSaveMixin {
      * @param optionsFileStringBuilder options file string builder
      * @return options file string builder
      */
-    private StringBuilder appendGuiScaleToOptionsFile(@NonNull StringBuilder optionsFileStringBuilder) {
+    private StringBuilder appendGuiScaleToOptionsFile(@Nonnull StringBuilder optionsFileStringBuilder) {
         return optionsFileStringBuilder.append(GUIScale.value());
     }
 }

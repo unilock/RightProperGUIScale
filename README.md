@@ -13,8 +13,7 @@ Right Proper GUI Scale is a comprehensive GUI Scale modification for Minecraft 1
 - Available on [Modrinth](https://modrinth.com/mod/rightproperguiscale)!
 
 ## Dependencies
-- [FalsePattern Lib 0.10.13+](https://github.com/FalsePattern/FalsePatternLib)
-- [GasStation 0.5.1+](https://github.com/FalsePattern/GasStation)
+- [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 
 ## Mentions
 - [FalsePattern](https://github.com/FalsePattern): FalsePatternLib and help debugging mixins

@@ -1,18 +1,17 @@
-package com.github.basdxz.rightproperguiscale.mixin.mixins.client.minecraft;
+package com.github.basdxz.rightproperguiscale.mixin.mixins.early.client.minecraft;
 
 import com.github.basdxz.rightproperguiscale.GUIScale;
+import com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig;
 import com.github.basdxz.rightproperguiscale.mixin.interfaces.client.minecraft.IScaledResolutionMixin;
-import lombok.*;
-import lombok.experimental.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.*;
-
-import static com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig.MIN_SCALED_HEIGHT;
-import static com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleConfig.MIN_SCALED_WIDTH;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Mixin for {@link ScaledResolution} to defer its creation.
@@ -20,7 +19,6 @@ import static com.github.basdxz.rightproperguiscale.config.RightProperGUIScaleCo
  * @see IScaledResolutionMixin
  */
 @Mixin(ScaledResolution.class)
-@Accessors(fluent = true, chain = true)
 public abstract class ScaledResolutionPatchMixin implements IScaledResolutionMixin {
     @Unique
     private int screenWidth;
@@ -30,12 +28,10 @@ public abstract class ScaledResolutionPatchMixin implements IScaledResolutionMix
     private int scaleFactor;
     @Unique
     private float scaleFactorF;
-    @Getter
     @Shadow
     private int scaledWidth;
     @Shadow
     private double scaledWidthD;
-    @Getter
     @Shadow
     private int scaledHeight;
     @Shadow
@@ -44,6 +40,16 @@ public abstract class ScaledResolutionPatchMixin implements IScaledResolutionMix
     @Override
     public float scaleFactor() {
         return scaleFactorF;
+    }
+
+    @Override
+    public int scaledWidth() {
+        return scaledWidth;
+    }
+
+    @Override
+    public int scaledHeight() {
+        return scaledHeight;
     }
 
     /**
@@ -74,9 +80,9 @@ public abstract class ScaledResolutionPatchMixin implements IScaledResolutionMix
      */
     @Unique
     private void updateScaleFactor() {
-        val maxWidthScale = Math.max((float) screenWidth / (float) MIN_SCALED_WIDTH, 1F);
-        val maxHeightScale = Math.max((float) screenHeight / (float) MIN_SCALED_HEIGHT, 1F);
-        val maxDimensionScale = Math.min(maxWidthScale, maxHeightScale);
+        var maxWidthScale = Math.max((float) screenWidth / RightProperGUIScaleConfig.MIN_SCALED_WIDTH, 1F);
+        var maxHeightScale = Math.max((float) screenHeight / RightProperGUIScaleConfig.MIN_SCALED_HEIGHT, 1F);
+        var maxDimensionScale = Math.min(maxWidthScale, maxHeightScale);
 
         scaleFactorF = Math.min(GUIScale.value(), maxDimensionScale);
         scaleFactor = Math.max(Math.round(scaleFactorF), 1);
